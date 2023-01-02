@@ -22,7 +22,7 @@ pyoxider build
 
 Run the debug build to see output from the standard Cookiecutter CLI:
 
-```shell
+```
 $ ./build/x86_64-unknown-linux-gnu/debug/install/rustycookie
 Usage: python -m cookiecutter.cli [OPTIONS] [TEMPLATE] [EXTRA_CONTEXT]...
 
