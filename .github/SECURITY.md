@@ -9,4 +9,4 @@ Maintainers:
 - Tim O'Guin <timoguin@gmail.com>
 
 <!-- Markdown anchors -->
-[open an issue]: https://github.com/timoguin/repo-template/issues
+[open an issue]: https://github.com/timoguin/cookiecutter-in-rust-cli/issues

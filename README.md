@@ -1,89 +1,61 @@
-# Repo Template
+# cookiecutter-in-rust-cli
 
-This repository is a very basic template for a new repository hosted on GitHub. It
-contains the following boilerplate:
-
-- CHANGELOG.md
-- LICENSE
-- README.md
-- GitHub CODEOWNERS
-- Code of Conduct
-- Contributing Guide
-- Security Guide
-- Empty dirs for GitHub Issue and PR templates
-- Empty dir for GitHub Actions workflows
-- Large .gitignore file
+Experimenting with embedding Python's cookiecutter CLI and library within a Rust binary.
 
 ## Usage
 
-I highly recommened the [GitHub CLI](https://cli.github.com) for interacting with the
-various GitHub APIs.
+Move to the [rustycookie](rustycookie/) directory with `cd rustycookie`.
 
-To create a new repository from this template, you can do the following:
+Install Rust dependencies:
 
-```
-$ gh repo create YOUR_GITHUB_USER/YOUR_GITHUB_REPO --description "A description of your repository" --template timoguin/repo-template --confirm
-```
-
-Since this is a very basic template, you will need to populate or modify some aspects
-of the repo contents after initial creation.
-
-Here are the steps:
-
-- Update this [README].
-- Update [CODEOWNERS]. This is used by GitHub for code reviews.
-- Update the [LICENSE]. By default, this template includes the MIT license text.
-- Update the [CHANGELOG] to include links for your specific repository. 
-- Update the [Contributing Guide]. By default, this template includes text describing
-  an opinionated fork-based workflow.
-- Update the [Code of Conduct] and insert your preferred contact method in the
-  [Enforcement] section. By default, this template includes the text from v2.0 of the
-  [Contributor Covenant].
-- Update the [Security Guide] to detail the process for reporting security issues.
-- If you want to use [Issue Templates], add them to the [ISSUE_TEMPLATE] directory.
-- If you want to use [Pull Request Templates], add them to the
-  [PULL_REQUEST_TEMPLATE] directory.
-- If you want to use [GitHub Actions], add workflow definitions to the [workflows]
-  directory.
-- Edit the [gitignore] file to your preferences. The included on is quite large and
-  includes a swath of patterns for various languages, tooling, and operating systems.
-
-And here is a sed-based method example to help with some of the more basic
-search-and-replace tasks:
-
-```
-$ export NAME="Your Name"
-$ export EMAIL="example@example.com"
-$ export GITHUB_USER="YOUR_GITHUB_USER"
-$ export GITHUB_REPO="YOUR_REPO"
-
-# For OS X, use gsed. Otherwise you will get the error "invalid command code C".  See
-# the below this code snippet.
-alias sed=gsed
-
-$ echo -e "# $GITHUB_REPO\n\nThis is my README, and I hope you will READ it." > README.md
-$ sed -i "s/@timoguin/@$GITHUB_USER/; s/Tim O'Guin/$NAME/; s/timoguin@gmail.com/$EMAIL/; s/timoguin\/repo-template/$GITHUB_USER\/$GITHUB_REPO/; s/2021 /$(date +'%Y') /" CHANGELOG.md LICENSE .github/CODEOWNERS .github/*.md
+```shell
+cargo install
 ```
 
-**NOTE**: if you are using OS X, you will need [GNU Sed] to support the -i flag for
-in-place file modifications.
+This should give you the `pyoxidizer` CLI tool.
 
+Build the `rustycookie` executable with PyOxidider:
 
-<!-- Markdown anchors -->
-[README]: README.md
-[CODEOWNERS]: .github/CODEOWNERS
-[LICENSE]: LICENSE
-[CHANGELOG]: CHANGELOG.md
-[Contributing Guide]: .github/CONTRIBUTING.md
-[Code of Conduct]: .github/CODE_OF_CONDUCT.md
-[Enforcement]: .github/CODE_OF_CONDUCT.md#Enforcement
-[Contributor Covenant]: https://www.contributor-covenant.org/version/2/0/code_of_conduct/
-[Security Guide]: .github/SECURITY.md
-[Issue Templates]: https://docs.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository
-[ISSUE_TEMPLATE]: .github/ISSUE_TEMPLATE
-[Pull Request Templates]: https://docs.github.com/en/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository
-[PULL_REQUEST_TEMPLATE]: .github/PULL_REQUEST_TEMPLATE
-[GitHub Actions]: https://docs.github.com/en/actions
-[workflows]: .github/workflows
-[gitignore]: .gitignore
-[GNU Sed]: https://formulae.brew.sh/formula/gnu-sed
+```shell
+pyoxider build
+```
+
+Run the debug build to see output from the standard Cookiecutter CLI:
+
+```shell
+$ ./build/x86_64-unknown-linux-gnu/debug/install/rustycookie
+Usage: python -m cookiecutter.cli [OPTIONS] [TEMPLATE] [EXTRA_CONTEXT]...
+
+  Create a project from a Cookiecutter project template (TEMPLATE).
+
+  Cookiecutter is free and open source software, developed and managed by
+  volunteers. If you would like to help out or fund the project, please get in
+  touch at https://github.com/cookiecutter/cookiecutter.
+
+Options:
+  -V, --version                Show the version and exit.
+  --no-input                   Do not prompt for parameters and only use
+                               cookiecutter.json file content
+  -c, --checkout TEXT          branch, tag or commit to checkout after git
+                               clone
+  --directory TEXT             Directory within repo that holds
+                               cookiecutter.json file for advanced
+                               repositories with multi templates in it
+  -v, --verbose                Print debug information
+  --replay                     Do not prompt for parameters and only use
+                               information entered previously
+  --replay-file PATH           Use this file for replay instead of the
+                               default.
+  -f, --overwrite-if-exists    Overwrite the contents of the output directory
+                               if it already exists
+  -s, --skip-if-file-exists    Skip the files in the corresponding directories
+                               if they already exist
+  -o, --output-dir PATH        Where to output the generated project dir into
+  --config-file PATH           User configuration file
+  --default-config             Do not load a config file. Use the defaults
+                               instead
+  --debug-file PATH            File to be used as a stream for DEBUG logging
+  --accept-hooks [yes|ask|no]  Accept pre/post hooks
+  -l, --list-installed         List currently installed templates.
+  -h, --help                   Show this message and exit.
+```
